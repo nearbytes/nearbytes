@@ -74,12 +74,12 @@
       .eyebrow {
         display: inline-flex;
         align-items: center;
-        min-height: 34px;
-        padding: 0 14px;
+        min-height: 38px;
+        padding: 0 16px;
         border-radius: 999px;
         background: rgba(255, 255, 255, 0.9);
         border: 1px solid var(--line);
-        font-size: 0.78rem;
+        font-size: 0.88rem;
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -217,6 +217,7 @@
         gap: 36px;
         min-height: 560px;
         padding: clamp(32px, 6vw, 56px);
+        cursor: pointer;
         background:
           radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.26), transparent 26%),
           radial-gradient(circle at 78% 28%, rgba(157, 182, 255, 0.24), transparent 26%),
@@ -224,6 +225,11 @@
           linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0)),
           radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.22), transparent 26%),
           linear-gradient(180deg, #0e1322 0%, #171e31 100%);
+      }
+
+      .carousel-panel:focus-visible {
+        outline: 2px solid rgba(157, 182, 255, 0.8);
+        outline-offset: 4px;
       }
 
       .carousel-heading {
@@ -237,7 +243,7 @@
         flex-wrap: wrap;
         gap: 16px;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
       }
 
       .carousel-kicker {
@@ -273,8 +279,8 @@
       .question-box {
         position: relative;
         width: min(100%, 620px);
-        min-height: 290px;
-        margin: 0 auto;
+        min-height: 250px;
+        margin: 0;
         padding: 28px;
         border-radius: 28px;
         border: 1px solid rgba(255, 255, 255, 0.12);
@@ -283,24 +289,20 @@
         box-shadow:
           0 28px 90px rgba(4, 8, 18, 0.34),
           inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        cursor: pointer;
+        cursor: default;
         text-align: left;
+        pointer-events: none;
       }
 
       .question-box:hover {
         border-color: rgba(255, 255, 255, 0.18);
       }
 
-      .question-box:focus-visible {
-        outline: 2px solid rgba(157, 182, 255, 0.8);
-        outline-offset: 4px;
-      }
-
       .carousel-item {
         position: absolute;
         inset: 28px;
         display: grid;
-        align-content: start;
+        align-content: center;
         gap: 16px;
         opacity: 0;
         transform: translateY(14px) scale(0.99);
@@ -315,43 +317,127 @@
         transform: translateY(0) scale(1);
       }
 
-      .instead-label {
-        margin: 0;
-        color: rgba(255, 255, 255, 0.72);
-        font-size: 0.85rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
       .instead-title {
         margin: 0;
         font-size: clamp(1.7rem, 3vw, 2.8rem);
-        line-height: 0.98;
+        line-height: 1.02;
         letter-spacing: -0.05em;
         color: white;
       }
 
       .instead-copy {
         margin: 0;
-        max-width: 30rem;
+        max-width: 34rem;
         color: rgba(255, 255, 255, 0.82);
         line-height: 1.6;
         font-size: 1.02rem;
       }
 
-      .carousel-tags {
+      .carousel-controls {
         display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: min(100%, 620px);
       }
 
-      .tag {
-        padding: 10px 14px;
+      .carousel-progress {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .carousel-progress-button {
+        appearance: none;
+        width: 22px;
+        height: 8px;
+        padding: 0;
+        border: 0;
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        transition:
+          width 180ms ease,
+          background 180ms ease,
+          transform 180ms ease;
+      }
+
+      .carousel-progress-button:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.34);
+      }
+
+      .carousel-progress-button.is-active {
+        width: 40px;
+        background: rgba(255, 255, 255, 0.96);
+      }
+
+      .carousel-nav {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .carousel-icon-button {
+        appearance: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
         background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.88);
-        backdrop-filter: blur(18px);
+        color: rgba(255, 255, 255, 0.92);
+        cursor: pointer;
+        backdrop-filter: blur(16px);
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      .carousel-icon-button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .carousel-icon-button.is-toggle.is-playing {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.16);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+      }
+
+      .carousel-icon-button.is-toggle.is-paused {
+        border-color: rgba(157, 182, 255, 0.38);
+        background: rgba(157, 182, 255, 0.18);
+        color: #e5ecff;
+        box-shadow: 0 0 0 1px rgba(157, 182, 255, 0.14);
+      }
+
+      .carousel-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      .carousel-icon[hidden] {
+        display: none;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
 
       .section {
@@ -362,6 +448,7 @@
         display: grid;
         grid-template-columns: minmax(0, 1fr);
         gap: 22px;
+        min-width: 0;
       }
 
       .release-title {
@@ -386,6 +473,17 @@
         grid-template-columns: minmax(0, 1fr) auto;
         gap: 18px;
         align-items: end;
+        min-width: 0;
+      }
+
+      .release-toolbar > div,
+      .install-surface > *,
+      .install-card,
+      .install-card-top,
+      .install-card-header,
+      .experimental-warning,
+      .command-shell {
+        min-width: 0;
       }
 
       .experimental-warning {
@@ -405,6 +503,7 @@
         margin: 0;
         color: var(--muted);
         line-height: 1.6;
+        overflow-wrap: anywhere;
       }
 
       .experimental-warning a {
@@ -484,6 +583,7 @@
 
       .install-card p {
         margin: 0;
+        overflow-wrap: anywhere;
       }
 
       .coming-soon {
@@ -544,6 +644,9 @@
         background: #0f1320;
         color: #f6f7fb;
         overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
         font-size: 0.84rem;
         line-height: 1.5;
       }
@@ -583,6 +686,11 @@
         .question-box {
           width: 100%;
         }
+
+        .carousel-controls {
+          width: 100%;
+          gap: 12px;
+        }
       }
     </style>
   </head>
@@ -610,18 +718,42 @@
         </div>
       </section>
 
-      <section class="panel carousel-panel section">
+      <section class="panel carousel-panel section" id="forget-stage" tabindex="0">
         <div class="carousel-heading">
           <div class="carousel-topbar">
             <p class="carousel-kicker">A better default for your data</p>
-            <button class="carousel-toggle" id="carousel-toggle" type="button" aria-pressed="false">Pause</button>
           </div>
           <div class="forget-line">
             <h2 class="forget-word">Forget</h2>
-            <p class="forget-hook" id="forget-hook">guessing</p>
+            <p class="forget-hook" id="forget-hook">the cloud</p>
           </div>
         </div>
-        <div class="question-box" id="forget-carousel" role="button" tabindex="0" aria-label="Advance Nearbytes story"></div>
+        <div class="question-box" id="forget-carousel" aria-hidden="true"></div>
+        <div class="carousel-controls">
+          <div class="carousel-progress" id="carousel-progress" aria-label="Carousel progress"></div>
+          <div class="carousel-nav">
+            <button class="carousel-icon-button" id="carousel-prev" type="button" aria-label="Previous slide">
+              <svg class="carousel-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+                <path d="M9.75 3.5 5.25 8l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+            <button class="carousel-icon-button is-toggle" id="carousel-toggle" type="button" aria-label="Pause autoplay" aria-pressed="false">
+              <svg class="carousel-icon" id="carousel-pause-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+                <rect x="4" y="3" width="2.5" height="10" rx="1"></rect>
+                <rect x="9.5" y="3" width="2.5" height="10" rx="1"></rect>
+              </svg>
+              <svg class="carousel-icon" id="carousel-play-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor" hidden>
+                <path d="M5 3.8c0-.63.68-1.02 1.22-.7l5.68 3.36a.8.8 0 0 1 0 1.38L6.22 11.2A.81.81 0 0 1 5 10.5V3.8Z"></path>
+              </svg>
+              <span class="sr-only" id="carousel-toggle-label">Pause autoplay</span>
+            </button>
+            <button class="carousel-icon-button" id="carousel-next" type="button" aria-label="Next slide">
+              <svg class="carousel-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+                <path d="m6.25 3.5 4.5 4.5-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
       </section>
 
       <section class="panel section" id="download">
@@ -646,6 +778,7 @@
               </p>
             </div>
             <div class="platform-picker" id="platform-picker">
+              <button class="platform-button" type="button" data-platform="source">Source</button>
               <button class="platform-button" type="button" data-platform="mac">macOS</button>
               <button class="platform-button" type="button" data-platform="windows">Windows</button>
               <button class="platform-button" type="button" data-platform="linux">Linux</button>
@@ -684,44 +817,45 @@
 
       const forgetSlides = [
         {
+          hook: "the cloud",
+          title: "The cloud becomes optional.",
+          copy: "Use cloud storage when you want it, not because your own files have to live somewhere else first.",
+        },
+        {
           hook: "guessing",
-          title: "Keep your data close.",
-          copy: "Nearbytes is local-first. Your data stays with you, remains easy to find, and can still travel on your terms.",
-          tags: ["local-first", "easy to find", "always with you"],
+          title: "Your data stays easy to find.",
+          copy: "Nearbytes starts on your device. You keep your data with you instead of wondering which machine, disk, or service has it.",
         },
         {
           hook: "duplicates",
-          title: "Work from the living version.",
-          copy: "Stop renaming finals, re-downloading copies, and guessing what changed where. Keep one evolving source of truth.",
-          tags: ["one live version", "less guesswork", "no renamed finals"],
+          title: "You stop juggling copies.",
+          copy: "Work from one living shared space instead of chasing renamed files and guessing which version is the latest.",
         },
         {
           hook: "workarounds",
-          title: "Share directly.",
-          copy: "Share with people and devices without channel roulette, upload hacks, or file-size gymnastics.",
-          tags: ["direct sharing", "near or far", "no channel roulette"],
-        },
-        {
-          hook: "the cloud",
-          title: "Stay local first.",
-          copy: "Your data is with you by default. Sync is a choice, not the place your digital life begins.",
-          tags: ["yours by default", "sync on your terms", "portable by design"],
+          title: "Sharing feels direct again.",
+          copy: "Send folders and updates without resorting to email attachments, chat uploads, or awkward transfer tricks.",
         },
         {
           hook: "backups",
-          title: "Make durability ambient.",
-          copy: "Preservation should happen in the background, not as a ritual you remember only when it is too late.",
-          tags: ["durable by design", "less maintenance", "built in"],
+          title: "Safety is built in.",
+          copy: "Your data should stay safe by default, without a separate backup ritual you remember only after something goes wrong.",
         },
         {
           hook: "platforms",
-          title: "Collaborate without matching services.",
-          copy: "Work with people, not subscriptions, logins, terms, and vendor gates.",
-          tags: ["fewer accounts", "fewer gates", "people first"],
+          title: "People matter more than platforms.",
+          copy: "Collaborate with your team without forcing everyone onto the same service, account, terms, or subscription.",
         },
       ];
 
       const installContent = {
+        source: {
+          label: "Source",
+          note: "Clone the repo, install dependencies, and run the Electron app locally.",
+          command: "git clone https://github.com/nearbytes/nearbytes-app.git && cd nearbytes-app && yarn && yarn dev-run",
+          href: sourcePage,
+          ctaLabel: "Source code",
+        },
         mac: {
           label: "macOS",
           note: "Fetch the DMG and open it.",
@@ -782,26 +916,44 @@
       }
 
       function buildCarousel() {
+        const stage = document.getElementById("forget-stage");
         const track = document.getElementById("forget-carousel");
+        const progressRoot = document.getElementById("carousel-progress");
         const hook = document.getElementById("forget-hook");
-        const toggle = document.getElementById("carousel-toggle");
 
         track.innerHTML = forgetSlides
           .map(
             (slide, index) => `
               <article class="carousel-item${index === 0 ? " is-active" : ""}">
-                <p class="instead-label">Instead</p>
                 <h3 class="instead-title">${slide.title}</h3>
                 <p class="instead-copy">${slide.copy}</p>
-                <div class="carousel-tags">
-                  ${slide.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
-                </div>
               </article>
             `,
           )
           .join("");
 
+        progressRoot.innerHTML = forgetSlides
+          .map(
+            (slide, index) => `
+              <button
+                class="carousel-progress-button${index === 0 ? " is-active" : ""}"
+                type="button"
+                data-index="${index}"
+                aria-label="Show ${slide.hook}"
+                aria-current="${index === 0 ? "true" : "false"}"
+              ></button>
+            `,
+          )
+          .join("");
+
         const items = Array.from(track.querySelectorAll(".carousel-item"));
+        const progressButtons = Array.from(progressRoot.querySelectorAll(".carousel-progress-button"));
+        const prevButton = document.getElementById("carousel-prev");
+        const nextButton = document.getElementById("carousel-next");
+        const toggle = document.getElementById("carousel-toggle");
+        const pauseIcon = document.getElementById("carousel-pause-icon");
+        const playIcon = document.getElementById("carousel-play-icon");
+        const toggleLabel = document.getElementById("carousel-toggle-label");
         let current = 0;
         let paused = false;
         let timer = null;
@@ -809,6 +961,10 @@
         const activate = (nextIndex) => {
           items[current].classList.remove("is-active");
           current = nextIndex;
+          progressButtons.forEach((button, index) => {
+            button.classList.toggle("is-active", index === current);
+            button.setAttribute("aria-current", index === current ? "true" : "false");
+          });
           hook.classList.add("is-changing");
           window.setTimeout(() => {
             hook.textContent = forgetSlides[current].hook;
@@ -823,7 +979,7 @@
           timer = window.setTimeout(() => {
             activate((current + 1) % items.length);
             schedule();
-          }, 4200);
+          }, 5400);
         };
 
         const advance = () => {
@@ -831,23 +987,63 @@
           schedule();
         };
 
-        const syncToggle = () => {
-          toggle.textContent = paused ? "Resume" : "Pause";
-          toggle.setAttribute("aria-pressed", String(paused));
+        const goBack = () => {
+          activate((current - 1 + items.length) % items.length);
+          schedule();
         };
 
-        track.addEventListener("click", advance);
-        track.addEventListener("keydown", (event) => {
+        const syncToggle = () => {
+          toggle.setAttribute("aria-pressed", String(paused));
+          toggle.setAttribute("aria-label", paused ? "Resume autoplay" : "Pause autoplay");
+          toggleLabel.textContent = paused ? "Resume autoplay" : "Pause autoplay";
+          pauseIcon.hidden = paused;
+          playIcon.hidden = !paused;
+          pauseIcon.style.display = paused ? "none" : "block";
+          playIcon.style.display = paused ? "block" : "none";
+          toggle.classList.toggle("is-paused", paused);
+          toggle.classList.toggle("is-playing", !paused);
+        };
+
+        stage.addEventListener("click", (event) => {
+          if (event.target.closest(".carousel-controls")) return;
+          event.preventDefault();
+          advance();
+        });
+        stage.addEventListener("keydown", (event) => {
+          if (event.target !== stage) return;
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
             advance();
           }
         });
 
-        toggle.addEventListener("click", () => {
+        prevButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          goBack();
+        });
+
+        nextButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          advance();
+        });
+
+        toggle.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
           paused = !paused;
           syncToggle();
           schedule();
+        });
+
+        progressButtons.forEach((button, index) => {
+          button.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            activate(index);
+            schedule();
+          });
         });
 
         syncToggle();
@@ -965,6 +1161,10 @@
             primaryDownload.textContent = "Coming soon";
             primaryDownload.removeAttribute("href");
             primaryDownload.classList.add("is-disabled");
+          } else if (entry.href) {
+            primaryDownload.textContent = entry.ctaLabel || "Open";
+            primaryDownload.href = entry.href;
+            primaryDownload.classList.remove("is-disabled");
           } else {
             primaryDownload.textContent = "Download";
             primaryDownload.href = entry.asset?.browser_download_url || releasesPage;
