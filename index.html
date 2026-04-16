@@ -121,6 +121,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        gap: 0.5rem;
         min-height: 48px;
         padding: 0 18px;
         border-radius: 999px;
@@ -143,6 +144,17 @@
         background: var(--text);
         border-color: var(--text);
         color: white;
+      }
+
+      .button.is-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      .button-icon {
+        width: 1rem;
+        height: 1rem;
+        flex: 0 0 auto;
       }
 
       .panel {
@@ -179,6 +191,7 @@
         flex-wrap: wrap;
         gap: 0;
         align-items: baseline;
+        max-width: 1000px;
       }
 
       .forget-hook {
@@ -190,36 +203,97 @@
         text-shadow:
           0 0 18px rgba(157, 182, 255, 0.6),
           0 0 42px rgba(61, 124, 255, 0.34);
-        transition:
-          opacity 260ms ease,
-          transform 260ms ease;
+        transition: opacity 260ms ease;
+        display: inline-block;
       }
 
       .forget-hook.is-changing {
-        opacity: 0;
-        transform: translateY(8px);
+        opacity: 0.18;
       }
 
       .carousel-panel {
         display: grid;
-        gap: 28px;
-        justify-items: start;
-        min-height: 420px;
+        align-content: space-between;
+        gap: 36px;
+        min-height: 560px;
+        padding: clamp(32px, 6vw, 56px);
         background:
-          radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.22), transparent 26%),
+          radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.26), transparent 26%),
+          radial-gradient(circle at 78% 28%, rgba(157, 182, 255, 0.24), transparent 26%),
           radial-gradient(circle at 80% 20%, rgba(255, 194, 75, 0.28), transparent 20%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0)),
+          radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.22), transparent 26%),
           linear-gradient(180deg, #0e1322 0%, #171e31 100%);
+      }
+
+      .carousel-heading {
+        display: grid;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .carousel-topbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .carousel-kicker {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .carousel-toggle {
+        appearance: none;
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.86);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease;
+      }
+
+      .carousel-toggle:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.24);
       }
 
       .question-box {
         position: relative;
-        width: min(100%, 720px);
-        min-height: 210px;
+        width: min(100%, 620px);
+        min-height: 290px;
+        margin: 0 auto;
         padding: 28px;
         border-radius: 28px;
         border: 1px solid rgba(255, 255, 255, 0.12);
         background: rgba(255, 255, 255, 0.06);
         backdrop-filter: blur(20px);
+        box-shadow:
+          0 28px 90px rgba(4, 8, 18, 0.34),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        text-align: left;
+      }
+
+      .question-box:hover {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+
+      .question-box:focus-visible {
+        outline: 2px solid rgba(157, 182, 255, 0.8);
+        outline-offset: 4px;
       }
 
       .carousel-item {
@@ -227,26 +301,42 @@
         inset: 28px;
         display: grid;
         align-content: start;
-        gap: 14px;
+        gap: 16px;
         opacity: 0;
-        transform: translateX(40px) scale(0.985);
+        transform: translateY(14px) scale(0.99);
         transition:
-          opacity 420ms ease,
-          transform 420ms ease;
+          opacity 520ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
         pointer-events: none;
       }
 
       .carousel-item.is-active {
         opacity: 1;
-        transform: translateX(0) scale(1);
+        transform: translateY(0) scale(1);
       }
 
-      .carousel-question {
+      .instead-label {
         margin: 0;
-        font-size: clamp(1.5rem, 3vw, 2.35rem);
-        line-height: 1.05;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .instead-title {
+        margin: 0;
+        font-size: clamp(1.7rem, 3vw, 2.8rem);
+        line-height: 0.98;
         letter-spacing: -0.05em;
         color: white;
+      }
+
+      .instead-copy {
+        margin: 0;
+        max-width: 30rem;
+        color: rgba(255, 255, 255, 0.82);
+        line-height: 1.6;
+        font-size: 1.02rem;
       }
 
       .carousel-tags {
@@ -270,9 +360,8 @@
 
       .release-card {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 18px;
-        align-items: end;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
       }
 
       .release-title {
@@ -290,52 +379,167 @@
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
-        justify-content: flex-end;
       }
 
-      .release-assets {
+      .release-toolbar {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 22px;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+        align-items: end;
       }
 
-      .asset {
+      .experimental-warning {
+        display: grid;
+        gap: 8px;
         padding: 16px 18px;
         border-radius: var(--radius-md);
+        border: 1px solid rgba(245, 158, 11, 0.24);
+        background: linear-gradient(180deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.03));
+      }
+
+      .experimental-warning strong {
+        font-size: 0.96rem;
+      }
+
+      .experimental-warning p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .experimental-warning a {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .platform-picker {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .platform-button {
+        appearance: none;
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
         border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.68);
+        background: rgba(255, 255, 255, 0.7);
+        color: var(--text);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease;
       }
 
-      .asset strong,
-      .install-card strong {
-        display: block;
-        margin-bottom: 6px;
+      .platform-button:hover {
+        transform: translateY(-1px);
+        border-color: var(--line-strong);
       }
 
-      .asset span,
-      .install-card p,
-      .status {
+      .platform-button.is-active {
+        background: var(--text);
+        border-color: var(--text);
+        color: white;
+      }
+
+      .platform-button.is-coming {
         color: var(--muted);
       }
 
-      .install-grid {
+      .install-surface {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 18px;
+        gap: 16px;
       }
 
       .install-card {
-        padding: 18px;
+        padding: 22px;
         border-radius: var(--radius-md);
         border: 1px solid var(--line);
         background: rgba(255, 255, 255, 0.76);
       }
 
+      .install-card-top {
+        display: grid;
+        gap: 6px;
+      }
+
+      .install-card-header {
+        display: grid;
+        gap: 6px;
+      }
+
+      .install-card strong {
+        display: block;
+        margin-bottom: 0;
+      }
+
+      .install-card p,
+      .status {
+        color: var(--muted);
+      }
+
+      .install-card p {
+        margin: 0;
+      }
+
+      .coming-soon {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        min-height: 28px;
+        padding: 0 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .coming-soon[hidden] {
+        display: none;
+      }
+
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1;
+        min-height: 40px;
+        padding: 0 14px;
+        white-space: nowrap;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.16);
+        color: #f6f7fb;
+        backdrop-filter: blur(14px);
+      }
+
+      .copy-button.is-copied {
+        background: var(--text);
+        border-color: var(--text);
+        color: white;
+      }
+
+      .copy-button.is-error {
+        background: rgba(220, 38, 38, 0.1);
+        border-color: rgba(220, 38, 38, 0.22);
+        color: #b91c1c;
+      }
+
+      .command-shell {
+        position: relative;
+        margin-top: 12px;
+      }
+
       pre {
-        margin: 12px 0 0;
+        margin: 0;
         padding: 14px 16px;
+        padding-right: 108px;
         border-radius: 16px;
         background: #0f1320;
         color: #f6f7fb;
@@ -359,9 +563,7 @@
       }
 
       @media (max-width: 920px) {
-        .release-card,
-        .release-assets,
-        .install-grid {
+        .release-toolbar {
           grid-template-columns: 1fr;
         }
 
@@ -369,8 +571,17 @@
           justify-content: flex-start;
         }
 
+        .carousel-topbar {
+          display: grid;
+          justify-content: start;
+        }
+
         .carousel-panel {
-          min-height: 380px;
+          min-height: 520px;
+        }
+
+        .question-box {
+          width: 100%;
         }
       }
     </style>
@@ -387,107 +598,164 @@
           </p>
         </div>
         <div class="hero-actions">
-          <a class="button primary" href="#install">Install now</a>
-          <a class="button" href="#release">Latest release</a>
+          <a class="button primary" href="#download">Install now</a>
+          <a class="button" href="https://github.com/nearbytes/nearbytes-app">
+            <svg class="button-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path>
+            </svg>
+            Source code
+          </a>
+          <a class="button" href="https://github.com/nearbytes/community">Community</a>
+          <a class="button" href="https://github.com/nearbytes/nearbytes-app/releases">Releases</a>
         </div>
       </section>
 
       <section class="panel carousel-panel section">
-        <div class="forget-line">
-          <h2 class="forget-word">Forget</h2>
-          <p class="forget-hook" id="forget-hook">file hunts</p>
+        <div class="carousel-heading">
+          <div class="carousel-topbar">
+            <p class="carousel-kicker">A better default for your data</p>
+            <button class="carousel-toggle" id="carousel-toggle" type="button" aria-pressed="false">Pause</button>
+          </div>
+          <div class="forget-line">
+            <h2 class="forget-word">Forget</h2>
+            <p class="forget-hook" id="forget-hook">guessing</p>
+          </div>
         </div>
-        <div class="question-box" id="forget-carousel"></div>
+        <div class="question-box" id="forget-carousel" role="button" tabindex="0" aria-label="Advance Nearbytes story"></div>
       </section>
 
-      <section class="panel section" id="release">
+      <section class="panel section" id="download">
         <div class="release-card">
-          <div>
-            <p class="panel-title">Live from GitHub</p>
-            <h2 class="release-title" id="release-title">Latest release</h2>
-            <p class="release-meta" id="release-meta">Fetching current version…</p>
+          <div class="release-toolbar">
+            <div>
+              <h2 class="release-title" id="release-title">Loading…</h2>
+              <p class="release-meta" id="release-meta">Fetching current version…</p>
+            </div>
+            <div class="release-actions">
+              <a class="button primary" id="primary-download" href="https://github.com/nearbytes/nearbytes-app/releases/latest">Download</a>
+              <a class="button" id="changelog-button" href="https://github.com/nearbytes/nearbytes-app/releases/latest" hidden>Changelog</a>
+            </div>
           </div>
-          <div class="release-actions">
-            <a class="button primary" id="primary-download" href="https://github.com/GabeGiancarlo/Nearbytes/releases/latest">Download</a>
-            <a class="button" id="release-notes" href="https://github.com/GabeGiancarlo/Nearbytes/releases/latest">Release notes</a>
-          </div>
-        </div>
-        <div class="release-assets" id="release-assets">
-          <div class="asset"><strong>macOS</strong><span>Loading…</span></div>
-          <div class="asset"><strong>Windows</strong><span>Loading…</span></div>
-          <div class="asset"><strong>Linux</strong><span>Loading…</span></div>
-        </div>
-      </section>
-
-      <section class="panel section" id="install">
-        <p class="panel-title">Cut, paste, done</p>
-        <h2 class="release-title" style="margin-top: 0">Install in one line.</h2>
-        <p class="status mini" id="install-status">
-          Commands will update to the latest published version automatically.
-        </p>
-        <div class="install-grid" id="install-grid">
-          <div class="install-card">
-            <strong>macOS</strong>
-            <p>Preparing command…</p>
-            <pre><code id="install-mac">Loading…</code></pre>
-          </div>
-          <div class="install-card">
-            <strong>Windows</strong>
-            <p>Preparing command…</p>
-            <pre><code id="install-windows">Loading…</code></pre>
-          </div>
-          <div class="install-card">
-            <strong>Linux</strong>
-            <p>Preparing command…</p>
-            <pre><code id="install-linux">Loading…</code></pre>
+          <div class="install-surface">
+            <div class="experimental-warning">
+              <strong>Highly experimental.</strong>
+              <p>
+                Nearbytes is currently in a highly experimental design phase and is meant for collaborative testing with the team.
+                If you want the stable path, watch or star the
+                <a href="https://github.com/nearbytes/community">community repo</a>.
+              </p>
+            </div>
+            <div class="platform-picker" id="platform-picker">
+              <button class="platform-button" type="button" data-platform="mac">macOS</button>
+              <button class="platform-button" type="button" data-platform="windows">Windows</button>
+              <button class="platform-button" type="button" data-platform="linux">Linux</button>
+              <button class="platform-button is-coming" type="button" data-platform="iphone">iPhone</button>
+              <button class="platform-button is-coming" type="button" data-platform="android">Android</button>
+            </div>
+            <div class="install-card" id="install-card">
+              <div class="install-card-top">
+                <div class="install-card-header">
+                  <strong id="install-platform-label">Loading…</strong>
+                  <p id="install-platform-note">Preparing install command…</p>
+                </div>
+              </div>
+              <div class="coming-soon" id="coming-soon-badge" hidden>Coming soon</div>
+              <div class="command-shell">
+                <button class="platform-button copy-button" id="copy-command" type="button" aria-label="Copy install command">
+                  <svg class="button-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+                    <rect x="5" y="3" width="8" height="10" rx="2" stroke="currentColor" stroke-width="1.4"></rect>
+                    <path d="M3.75 10.5h-.25A1.5 1.5 0 0 1 2 9V4.5A1.5 1.5 0 0 1 3.5 3h4.75" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+                  </svg>
+                  <span id="copy-command-label">Copy</span>
+                </button>
+                <pre><code id="install-command">Loading…</code></pre>
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
     <script>
-      const releaseApi = "https://api.github.com/repos/GabeGiancarlo/Nearbytes/releases/latest";
-      const releasePage = "https://github.com/GabeGiancarlo/Nearbytes/releases/latest";
+      const releaseApi = "https://api.github.com/repos/nearbytes/nearbytes-app/releases/latest";
+      const sourcePage = "https://github.com/nearbytes/nearbytes-app";
+      const releasePage = `${sourcePage}/releases/latest`;
+      const releasesPage = `${sourcePage}/releases`;
 
       const forgetSlides = [
         {
-          hook: "files",
-          question: "where is that file?",
-          tags: ["this Mac", "USB drive", "other PC", "phone"],
+          hook: "guessing",
+          title: "Keep your data close.",
+          copy: "Nearbytes is local-first. Your data stays with you, remains easy to find, and can still travel on your terms.",
+          tags: ["local-first", "easy to find", "always with you"],
         },
         {
-          hook: "versions",
-          question: "which copy is current?",
-          tags: ["edited here", "uploaded there", "downloaded again", "renamed final"],
+          hook: "duplicates",
+          title: "Work from the living version.",
+          copy: "Stop renaming finals, re-downloading copies, and guessing what changed where. Keep one evolving source of truth.",
+          tags: ["one live version", "less guesswork", "no renamed finals"],
         },
         {
-          hook: "friction",
-          question: "how do I share this folder now?",
-          tags: ["email", "chat upload", "Bluetooth", "cable transfer"],
+          hook: "workarounds",
+          title: "Share directly.",
+          copy: "Share with people and devices without channel roulette, upload hacks, or file-size gymnastics.",
+          tags: ["direct sharing", "near or far", "no channel roulette"],
         },
         {
           hook: "the cloud",
-          question: "which cloud did I use?",
-          tags: ["OneDrive", "Dropbox", "Mega", "WhatsApp"],
+          title: "Stay local first.",
+          copy: "Your data is with you by default. Sync is a choice, not the place your digital life begins.",
+          tags: ["yours by default", "sync on your terms", "portable by design"],
         },
         {
           hook: "backups",
-          question: "why is backup a separate job?",
-          tags: ["be disciplined", "buy storage", "trust the vendor", "hope it restores"],
+          title: "Make durability ambient.",
+          copy: "Preservation should happen in the background, not as a ritual you remember only when it is too late.",
+          tags: ["durable by design", "less maintenance", "built in"],
         },
         {
-          hook: "forced platforms",
-          question: "why is local collaboration harder than the cloud?",
-          tags: ["same service", "same login", "same terms", "same bill"],
+          hook: "platforms",
+          title: "Collaborate without matching services.",
+          copy: "Work with people, not subscriptions, logins, terms, and vendor gates.",
+          tags: ["fewer accounts", "fewer gates", "people first"],
         },
       ];
 
+      const installContent = {
+        mac: {
+          label: "macOS",
+          note: "Fetch the DMG and open it.",
+        },
+        windows: {
+          label: "Windows",
+          note: "Fetch the installer and run it.",
+        },
+        linux: {
+          label: "Linux",
+          note: "Fetch the AppImage and launch it.",
+        },
+        iphone: {
+          label: "iPhone",
+          note: "Native iPhone support is on the way.",
+          command: 'echo "coming soon"',
+          comingSoon: true,
+        },
+        android: {
+          label: "Android",
+          note: "Native Android support is on the way.",
+          command: 'echo "coming soon"',
+          comingSoon: true,
+        },
+      };
+
       function detectPlatform() {
         const agent = navigator.userAgent.toLowerCase();
+        if (agent.includes("iphone") || agent.includes("ipad")) return "iphone";
+        if (agent.includes("android")) return "android";
         if (agent.includes("mac")) return "mac";
         if (agent.includes("win")) return "windows";
         if (agent.includes("linux")) return "linux";
-        return "unknown";
+        return "mac";
       }
 
       function pickAsset(assets, platform) {
@@ -513,28 +781,18 @@
         return new Intl.DateTimeFormat(undefined, { dateStyle: "long" }).format(new Date(value));
       }
 
-      function escapeHtml(value) {
-        return value.replace(/[&<>"']/g, (char) => {
-          const entities = {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;",
-          };
-          return entities[char];
-        });
-      }
-
       function buildCarousel() {
         const track = document.getElementById("forget-carousel");
         const hook = document.getElementById("forget-hook");
+        const toggle = document.getElementById("carousel-toggle");
 
         track.innerHTML = forgetSlides
           .map(
             (slide, index) => `
               <article class="carousel-item${index === 0 ? " is-active" : ""}">
-                <h3 class="carousel-question">${slide.question}</h3>
+                <p class="instead-label">Instead</p>
+                <h3 class="instead-title">${slide.title}</h3>
+                <p class="instead-copy">${slide.copy}</p>
                 <div class="carousel-tags">
                   ${slide.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
                 </div>
@@ -545,29 +803,68 @@
 
         const items = Array.from(track.querySelectorAll(".carousel-item"));
         let current = 0;
+        let paused = false;
+        let timer = null;
 
-        window.setInterval(() => {
+        const activate = (nextIndex) => {
           items[current].classList.remove("is-active");
-          current = (current + 1) % items.length;
+          current = nextIndex;
           hook.classList.add("is-changing");
           window.setTimeout(() => {
             hook.textContent = forgetSlides[current].hook;
             hook.classList.remove("is-changing");
-          }, 170);
+          }, 180);
           items[current].classList.add("is-active");
-        }, 2600);
+        };
+
+        const schedule = () => {
+          window.clearTimeout(timer);
+          if (paused) return;
+          timer = window.setTimeout(() => {
+            activate((current + 1) % items.length);
+            schedule();
+          }, 4200);
+        };
+
+        const advance = () => {
+          activate((current + 1) % items.length);
+          schedule();
+        };
+
+        const syncToggle = () => {
+          toggle.textContent = paused ? "Resume" : "Pause";
+          toggle.setAttribute("aria-pressed", String(paused));
+        };
+
+        track.addEventListener("click", advance);
+        track.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            advance();
+          }
+        });
+
+        toggle.addEventListener("click", () => {
+          paused = !paused;
+          syncToggle();
+          schedule();
+        });
+
+        syncToggle();
+        schedule();
       }
 
-      function setInstallCommand(id, command) {
-        const node = document.getElementById(id);
-        node.textContent = command;
+      function hasRealChangelog(body) {
+        if (typeof body !== "string") return false;
+        const normalized = body.replace(/\s+/g, " ").trim();
+        return Boolean(normalized && normalized.toLowerCase() !== "null" && normalized.length >= 24);
       }
 
       function renderReleaseCards(release, assets) {
         const releaseMeta = document.getElementById("release-meta");
         const releaseTitle = document.getElementById("release-title");
-        const releaseAssets = document.getElementById("release-assets");
         const primaryDownload = document.getElementById("primary-download");
+        const changelogButton = document.getElementById("changelog-button");
 
         releaseTitle.textContent = release.tag_name;
         releaseMeta.textContent = `Published ${formatDate(release.published_at)}`;
@@ -575,63 +872,123 @@
         const macAsset = pickAsset(assets, "mac");
         const windowsAsset = pickAsset(assets, "windows");
         const linuxAsset = pickAsset(assets, "linux");
-        const localPlatform = detectPlatform();
-        const recommended =
-          localPlatform === "mac"
-            ? macAsset
-            : localPlatform === "windows"
-              ? windowsAsset
-              : localPlatform === "linux"
-                ? linuxAsset
-                : macAsset || windowsAsset || linuxAsset;
+        installContent.mac.asset = macAsset;
+        installContent.windows.asset = windowsAsset;
+        installContent.linux.asset = linuxAsset;
 
-        if (recommended) {
-          primaryDownload.href = recommended.browser_download_url;
+        if (hasRealChangelog(release.body)) {
+          changelogButton.hidden = false;
+          changelogButton.href = release.html_url || releasesPage;
+        } else {
+          changelogButton.hidden = true;
         }
-
-        const cards = [
-          { name: "macOS", asset: macAsset },
-          { name: "Windows", asset: windowsAsset },
-          { name: "Linux", asset: linuxAsset },
-        ];
-
-        releaseAssets.innerHTML = cards
-          .map(
-            ({ name, asset }) => `
-              <article class="asset">
-                <strong>${name}</strong>
-                <span>${asset ? escapeHtml(asset.name) : "See release notes"}</span>
-              </article>
-            `,
-          )
-          .join("");
       }
 
-      function renderInstallCommands(assets) {
-        const macAsset = pickAsset(assets, "mac");
-        const windowsAsset = pickAsset(assets, "windows");
-        const linuxAsset = pickAsset(assets, "linux");
+      function commandForPlatform(platform) {
+        const entry = installContent[platform];
+        if (!entry) return "Open the release page to install the latest build.";
+        if (entry.command) return entry.command;
+        if (!entry.asset) return "Open the release page to install the latest build.";
+        if (platform === "mac") {
+          return `curl -L "${entry.asset.browser_download_url}" -o /tmp/Nearbytes.dmg && open /tmp/Nearbytes.dmg`;
+        }
+        if (platform === "windows") {
+          return `curl.exe -L "${entry.asset.browser_download_url}" -o "$env:TEMP\\Nearbytes-Setup.exe"; Start-Process "$env:TEMP\\Nearbytes-Setup.exe"`;
+        }
+        if (platform === "linux") {
+          return `curl -L "${entry.asset.browser_download_url}" -o /tmp/Nearbytes.AppImage && chmod +x /tmp/Nearbytes.AppImage && /tmp/Nearbytes.AppImage`;
+        }
+        return "Open the release page to install the latest build.";
+      }
 
-        setInstallCommand(
-          "install-mac",
-          macAsset
-            ? `curl -L "${macAsset.browser_download_url}" -o /tmp/Nearbytes.dmg && open /tmp/Nearbytes.dmg`
-            : "Open the release page to install the latest macOS build.",
-        );
+      function setupPlatformPicker(initialPlatform) {
+        const picker = document.getElementById("platform-picker");
+        const label = document.getElementById("install-platform-label");
+        const note = document.getElementById("install-platform-note");
+        const command = document.getElementById("install-command");
+        const badge = document.getElementById("coming-soon-badge");
+        const primaryDownload = document.getElementById("primary-download");
+        const copyButton = document.getElementById("copy-command");
+        const copyLabel = document.getElementById("copy-command-label");
+        const buttons = Array.from(picker.querySelectorAll(".platform-button"));
+        let copyResetTimer = null;
 
-        setInstallCommand(
-          "install-windows",
-          windowsAsset
-            ? `curl.exe -L "${windowsAsset.browser_download_url}" -o "$env:TEMP\\Nearbytes-Setup.exe"; Start-Process "$env:TEMP\\Nearbytes-Setup.exe"`
-            : "Open the release page to install the latest Windows build.",
-        );
+        const setCopyState = (state) => {
+          window.clearTimeout(copyResetTimer);
+          copyButton.classList.remove("is-copied", "is-error");
+          copyLabel.textContent = "Copy";
+          if (state === "copied") {
+            copyButton.classList.add("is-copied");
+            copyLabel.textContent = "Copied";
+          } else if (state === "error") {
+            copyButton.classList.add("is-error");
+            copyLabel.textContent = "Copy failed";
+          }
+          if (state) {
+            copyResetTimer = window.setTimeout(() => {
+              copyButton.classList.remove("is-copied", "is-error");
+              copyLabel.textContent = "Copy";
+            }, 1800);
+          }
+        };
 
-        setInstallCommand(
-          "install-linux",
-          linuxAsset
-            ? `curl -L "${linuxAsset.browser_download_url}" -o /tmp/Nearbytes.AppImage && chmod +x /tmp/Nearbytes.AppImage && /tmp/Nearbytes.AppImage`
-            : "Open the release page to install the latest Linux build.",
-        );
+        const copyText = async (value) => {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(value);
+            return;
+          }
+          const textarea = document.createElement("textarea");
+          textarea.value = value;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "absolute";
+          textarea.style.left = "-9999px";
+          document.body.appendChild(textarea);
+          textarea.select();
+          const succeeded = document.execCommand("copy");
+          document.body.removeChild(textarea);
+          if (!succeeded) {
+            throw new Error("Copy command failed");
+          }
+        };
+
+        const setPlatform = (platform) => {
+          const entry = installContent[platform] || installContent.mac;
+          buttons.forEach((button) => {
+            button.classList.toggle("is-active", button.dataset.platform === platform);
+          });
+          label.textContent = entry.label;
+          note.textContent = entry.note;
+          command.textContent = commandForPlatform(platform);
+          badge.hidden = !entry.comingSoon;
+
+          if (entry.comingSoon) {
+            primaryDownload.textContent = "Coming soon";
+            primaryDownload.removeAttribute("href");
+            primaryDownload.classList.add("is-disabled");
+          } else {
+            primaryDownload.textContent = "Download";
+            primaryDownload.href = entry.asset?.browser_download_url || releasesPage;
+            primaryDownload.classList.remove("is-disabled");
+          }
+
+          setCopyState(null);
+        };
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => setPlatform(button.dataset.platform));
+        });
+
+        copyButton.addEventListener("click", async () => {
+          try {
+            await copyText(command.textContent);
+            setCopyState("copied");
+          } catch (error) {
+            console.error(error);
+            setCopyState("error");
+          }
+        });
+
+        setPlatform(initialPlatform);
       }
 
       async function loadRelease() {
@@ -646,16 +1003,12 @@
           const release = await response.json();
           const assets = release.assets || [];
           renderReleaseCards(release, assets);
-          renderInstallCommands(assets);
+          setupPlatformPicker(detectPlatform());
         } catch (error) {
           console.error(error);
           document.getElementById("release-meta").textContent =
             "Could not load the current release automatically.";
-          document.getElementById("install-status").textContent =
-            "Automatic install commands are unavailable right now. Use the release notes link instead.";
-          setInstallCommand("install-mac", "Open the release page to install the latest macOS build.");
-          setInstallCommand("install-windows", "Open the release page to install the latest Windows build.");
-          setInstallCommand("install-linux", "Open the release page to install the latest Linux build.");
+          setupPlatformPicker(detectPlatform());
         }
       }
 
